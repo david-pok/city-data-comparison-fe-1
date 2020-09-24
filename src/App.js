@@ -5,6 +5,8 @@ import PrivateRoute from "./components/PrivateRoute.js";
 
 import "./App.scss";
 
+import {cityDataById} from "./utils/axiosDataScience.js";
+
 import Dashboard from "./components/pages/index/Dashboard.js";
 import Navigation from "./components/navigation/Navigation.js";
 import Footer from "./components/navigation/Footer.js";
@@ -27,6 +29,11 @@ function App() {
     initializeAnalytics();
     ReactGA.event({ category: "App", action: "Loaded app" });
   }, []);
+
+  // Wake up the heroku container on the data science API by making an initial request.
+  useEffect(() => {
+    cityDataById().get(`/7244`);
+  }, []) 
 
   //possible map component
   //parse data into static js arr instead of reading off the json file everytime
